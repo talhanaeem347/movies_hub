@@ -1,15 +1,18 @@
-import { useState } from 'react'
 import Header from './components/header'
-import Cards from './components/cards'
+import {Routes, Route} from 'react-router-dom'
+import Home from './pages/home'
+import AddMovie from './pages/addMovie'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
     <>
     <div className='bd-red-500'>
     <Header />  
-    <Cards />
+    <Routes>
+    <Route path='/' element={<Home />} />
+    <Route path='/add-movie' element={<AddMovie />} />
+    </Routes>
 
     </div>
     </>

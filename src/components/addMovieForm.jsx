@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import ReactStars from 'react-stars';
 const AddMovieForm = (props) => {
-    const { onTitleChange, onDatechange,onRatingChange ,onSubmit } = props;
+    const { onTitleChange, onDatechange,onRatingChange, onDescriptionChange ,onSubmit } = props;
     const [title, setTitle] = useState();
     const [releaseDate, setReleaseDate] = useState();
     const [description, setDescription] = useState();
 
     const handelFormSubmit = () => {
         if(!title || !releaseDate || !description) return;
-        onSubmit({ title, releaseDate, description });
+        onSubmit();
     };
 
 
@@ -38,7 +38,7 @@ const AddMovieForm = (props) => {
                                 <input
                                     onChange={(e) => {
                                         setReleaseDate(e.target.value);
-                                        onDatechange(e.target.value)
+                                        onDatechange(new Date(e.target.value).getFullYear())
                                     }}
                                     type="date" id="release-date" name="release-date" placeholder="Movie Title" className="w-full bg-gray-100 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                             </div>
@@ -47,7 +47,7 @@ const AddMovieForm = (props) => {
                             <div className="relative">
                                 <label htmlFor="description" className="leading-7 text-sm text-gray-200">description</label>
                                 <textarea
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    onChange={(e) => {setDescription(e.target.value);onDescriptionChange(e.target.value)}}
                                     id="description" name="description" className="w-full bg-gray-100 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                             </div>
                         </div>

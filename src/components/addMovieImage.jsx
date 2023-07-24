@@ -2,8 +2,8 @@ import Card from './card';
 import React, {useMemo, useState } from 'react';
 
 const AddMovieImage = (props) => {
-    const { title, rating, year } = props;
-    const [image, setImage] = useState(null);
+    const { title, rating, year, onImageChange } = props;
+    const [image, setImage] = useState('');
 
     const handleDrop = (event) => {
         event.preventDefault();
@@ -18,15 +18,17 @@ const AddMovieImage = (props) => {
         const reader = new FileReader();
         reader.onload = () => {
             setImage(reader.result);
-            console.log(reader.result);
+            
         };
         if (file) {
             reader.readAsDataURL(file);
+            onImageChange(file);
+            // console.log(file);
         }
     };
     const handleClick = () => {
         // Trigger the file input when the user clicks on the "drop-area" div
-        const fileInput = document.getElementById('file-input');
+        const fileInput = document.querySelector('input[type="file"]');
         fileInput.click();
 
       };
@@ -36,13 +38,14 @@ const AddMovieImage = (props) => {
 
 
     return (
-        <div className="container mx-auto h-full flex flex-col items-center justify-center  p-6 border border-gray-300 rounded-lg shadow-lg">
+        <div className="container mx-auto h-full flex flex-col items-center justify-center  p-6 sm:p-2 border border-gray-300 rounded-lg shadow-lg">
             {!image ? (
             <>
 
                 <h2 className="text-2xl font-bold mb-4">Image Uploader</h2>
                 <div
                     className="drop-area border border-dashed border-gray-400 rounded-md p-4 flex justify-center items-center cursor-pointer"
+                    onClick={handleClick}
                     onDragOver={(event) => event.preventDefault()}
                     onDrop={handleDrop}
                 >
